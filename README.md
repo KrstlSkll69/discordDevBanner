@@ -1,5 +1,7 @@
 # Discord-devBanner
 Enables the Discord developer banner, in which displays the build-ID
+> [Vencord's Unofficial Plugins Channel](https://discord.com/channels/1015060230222131221/1394066990045335673)
+
 
 ![](https://cdn.nest.rip/uploads/cd11c2b8-46fd-41dc-a59c-dcdee487da25.png)
 
