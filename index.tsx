@@ -51,7 +51,7 @@ export default definePlugin({
                     replace: "true"
                 },
                 {
-                    // predicate:() => settings.store.removeCloseButton,
+                    predicate:() => settings.store.removeCloseButton,
                     match: /(\i=\(\)=>)\(.*?\}\);/,
                     replace: "$1null;",
                 },
