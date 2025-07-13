@@ -1,11 +1,11 @@
 # devBanner
-Enables the Discord dev banner, which shows the build ID
+Enables the Discord developer banner, in which displays the build-ID
 
 ![](https://cdn.nest.rip/uploads/cd11c2b8-46fd-41dc-a59c-dcdee487da25.png)
 
 ---
 
-![](https://cdn.nest.rip/uploads/db9d7448-2d1f-46d5-adf1-f980efd0b976.png)
+![](https://cdn.nest.rip/uploads/f4070f09-ccfa-44c6-9c27-e2c9f8c64838.png)
 
 ---
 

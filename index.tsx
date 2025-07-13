@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import { definePluginSettings } from "@api/Settings";
+import { definePluginSettings, migratePluginSettings } from "@api/Settings";
 import { disableStyle, enableStyle } from "@api/Styles";
 import definePlugin, { OptionType } from "@utils/types";
 
@@ -26,9 +26,11 @@ const names: Record<string, string> = {
     staging: "Staging"
 };
 
+migratePluginSettings("DiscordDevBanner", "devBanner");
+
 export default definePlugin({
-    name: "devBanner",
-    description: "Enables the Discord dev banner, which shows the build ID",
+    name: "DiscordDevBanner",
+    description: "Enables the Discord developer banner, in which displays the build-ID",
     authors: [
         { name: "krystalskullofficial", id: 929208515883569182n },
     ],
