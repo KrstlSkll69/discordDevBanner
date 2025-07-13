@@ -32,8 +32,6 @@ const names: Record<string, string> = {
     staging: "Staging"
 };
 
-
-
 export default definePlugin({
     name: "devBanner",
     description: "Enables the Discord dev banner, which shows the build ID",
