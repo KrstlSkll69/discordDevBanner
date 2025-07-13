@@ -44,14 +44,16 @@ export default definePlugin({
     patches: [
         {
             find: ".devBanner,",
-            replacement: [{
-                match: '"staging"===window.GLOBAL_ENV.RELEASE_CHANNEL',
-                replace: "true"
-            },
-            {
-                match: /.\.intl\.format\(.+?,{buildNumber:(.+?)}\)/,
-                replace: (_, buildNumber) => `$self.transform(${buildNumber})`
-            }]
+            replacement: [
+                {
+                    match: '"staging"===window.GLOBAL_ENV.RELEASE_CHANNEL',
+                    replace: "true"
+                },
+                {
+                    match: /\i\.\i\.format\(.{0,15},{buildNumber:(.{0,10})}\)/,
+                    replace: "$self.transform($1)"
+                }
+            ]
         }
     ],
 
