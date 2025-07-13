@@ -4,21 +4,8 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import { definePluginSettings, migratePluginSettings } from "@api/Settings";
-import { disableStyle, enableStyle } from "@api/Styles";
-import definePlugin, { OptionType } from "@utils/types";
-
-import removeCloseButton from "./removeClose.css?managed";
-
-const settings = definePluginSettings({
-    // Yes I prolly should just make a patch to removed the 'X' button, but why over complicate things
-    removeCloseButton: {
-        type: OptionType.BOOLEAN,
-        default: false,
-        description: "Remove redundant close button, which might actually break plugin if accidentally pressed",
-        restartNeeded: true,
-    }
-});
+import { migratePluginSettings } from "@api/Settings";
+import definePlugin from "@utils/types";
 
 // By default Discord only seems too displays 'Staging' so we map the names ourself
 const names: Record<string, string> = {
@@ -39,8 +26,6 @@ export default definePlugin({
         { name: "krystalskullofficial", id: 929208515883569182n },
     ],
 
-    settings,
-
     patches: [
         {
             find: ".devBanner,",
@@ -48,6 +33,10 @@ export default definePlugin({
                 {
                     match: '"staging"===window.GLOBAL_ENV.RELEASE_CHANNEL',
                     replace: "true"
+                },
+                {
+                    match: /(\i=\(\)=>)\(.*?\}\);/,
+                    replace: "$1null;"
                 },
                 {
                     match: /\i\.\i\.format\(.{0,15},{buildNumber:(.{0,10})}\)/,
@@ -66,11 +55,4 @@ export default definePlugin({
             return `${releaseChannel.charAt(0).toUpperCase() + releaseChannel.slice(1)} ${buildNumber}`;
         }
     },
-
-    start() {
-        if (settings.store.removeCloseButton) enableStyle(removeCloseButton);
-    },
-    stop() {
-        if (settings.store.removeCloseButton) disableStyle(removeCloseButton);
-    }
 });
