@@ -4,8 +4,20 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import { migratePluginSettings } from "@api/Settings";
-import definePlugin from "@utils/types";
+/* eslint-disable unused-imports/no-unused-imports */
+import { definePluginSettings, migratePluginSettings } from "@api/Settings";
+import definePlugin, { OptionType } from "@utils/types";
+
+// eslint-disable-next-line @stylistic/spaced-comment
+/*const settings = definePluginSettings({
+*    removeCloseButton: {
+*        type: OptionType.BOOLEAN,
+*        default: false,
+*        description: "Remove redundant close button, which might actually break plugin if accidentally pressed",
+*        restartNeeded: true,
+*    }
+*});
+*/
 
 // By default Discord only seems too displays 'Staging' so we map the names ourself
 const names: Record<string, string> = {
@@ -25,6 +37,7 @@ export default definePlugin({
         // Import from EquicordDevs for Equicord
         { name: "krystalskullofficial", id: 929208515883569182n },
     ],
+    // settings,
 
     patches: [
         {
@@ -35,8 +48,9 @@ export default definePlugin({
                     replace: "true"
                 },
                 {
+                    // predicate:() => settings.store.removeCloseButton,
                     match: /(\i=\(\)=>)\(.*?\}\);/,
-                    replace: "$1null;"
+                    replace: "$1null;",
                 },
                 {
                     match: /\i\.\i\.format\(.{0,15},{buildNumber:(.{0,10})}\)/,
