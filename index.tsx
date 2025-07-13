@@ -10,7 +10,20 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import definePlugin from "@utils/types";
+import { definePluginSettings } from "@api/Settings";
+import { disableStyle, enableStyle } from "@api/Styles";
+import definePlugin, { OptionType } from "@utils/types";
+
+import removeCloseButton from "./removeClose.css?managed";
+
+const settings = definePluginSettings({
+    removeCloseButton: {
+        type: OptionType.BOOLEAN,
+        default: false,
+        description: "Remove redundant close button, which might actually break plugin",
+        restartNeeded: true,
+    }
+});
 
 const names: Record<string, string> = {
     stable: "Stable",
@@ -19,12 +32,16 @@ const names: Record<string, string> = {
     staging: "Staging"
 };
 
+
+
 export default definePlugin({
     name: "devBanner",
     description: "Enables the Discord dev banner, which shows the build ID",
     authors: [
         { name: "krystalskullofficial", id: 929208515883569182n },
     ],
+
+    settings,
 
     patches: [
         {
@@ -48,5 +65,12 @@ export default definePlugin({
         } else {
             return `${releaseChannel.charAt(0).toUpperCase() + releaseChannel.slice(1)} ${buildNumber}`;
         }
+    },
+
+    start() {
+        if (settings.store.removeCloseButton) enableStyle(removeCloseButton);
+    },
+    stop() {
+        if (settings.store.removeCloseButton) disableStyle(removeCloseButton);
     }
 });
