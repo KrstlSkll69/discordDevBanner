@@ -11,14 +11,16 @@ import definePlugin, { OptionType } from "@utils/types";
 import removeCloseButton from "./removeClose.css?managed";
 
 const settings = definePluginSettings({
+    // Yes I prolly should just make a patch to removed the 'X' button, but why over complicate things
     removeCloseButton: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "Remove redundant close button, which might actually break plugin",
+        description: "Remove redundant close button, which might actually break plugin if accidentally pressed",
         restartNeeded: true,
     }
 });
 
+// By default Discord only seems too displays 'Staging' so we map the names ourself
 const names: Record<string, string> = {
     stable: "Stable",
     ptb: "PTB",
@@ -26,12 +28,14 @@ const names: Record<string, string> = {
     staging: "Staging"
 };
 
+// Useless for the normal User, but useful for me
 migratePluginSettings("DiscordDevBanner", "devBanner");
 
 export default definePlugin({
     name: "DiscordDevBanner",
     description: "Enables the Discord developer banner, in which displays the build-ID",
     authors: [
+        // Import from EquicordDevs for Equicord
         { name: "krystalskullofficial", id: 929208515883569182n },
     ],
 

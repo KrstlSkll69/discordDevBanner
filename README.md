@@ -5,7 +5,7 @@ Enables the Discord developer banner, in which displays the build-ID
 
 ---
 
-![](https://cdn.nest.rip/uploads/f4070f09-ccfa-44c6-9c27-e2c9f8c64838.png)
+![](https://cdn.nest.rip/uploads/2f7a025f-1a63-4436-bc76-3c3292bee405.png)
 
 ---
 
