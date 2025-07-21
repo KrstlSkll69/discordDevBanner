@@ -1,3 +1,5 @@
+/* eslint-disable simple-header/header */
+/* eslint-disable no-duplicate-imports */
 /*
  * Vencord, a Discord client mod
  * Copyright (c) 2025 Vendicated and contributors
@@ -7,17 +9,13 @@
 import { definePluginSettings, migratePluginSettings } from "@api/Settings";
 import definePlugin, { OptionType } from "@utils/types";
 
-
 const settings = definePluginSettings({
     removeCloseButton: {
         type: OptionType.BOOLEAN,
         default: true,
         description: "Remove redundant close button, which might actually break plugin if accidentally pressed",
         restartNeeded: true,
-    }
-}, {
-    removeCloseButton: {
-        disabled: () => true
+        hidden: true,
     }
 });
 
