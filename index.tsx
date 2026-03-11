@@ -19,7 +19,6 @@ const settings = definePluginSettings({
     }
 });
 
-
 // By default Discord only seems too displays 'Staging' so we map the names ourself
 const names: Record<string, string> = {
     stable: "Stable",
@@ -35,34 +34,34 @@ export default definePlugin({
     name: "DiscordDevBanner",
     description: "Enables the Discord developer banner, in which displays the build-ID",
     authors: [
-        // Import from EquicordDevs for Equicord
         { name: "krystalskullofficial", id: 929208515883569182n },
     ],
     settings,
 
     patches: [
         {
-            find: ".devBanner,",
+            find: '"isHideDevBanner"',
             replacement: [
                 {
                     match: '"staging"===window.GLOBAL_ENV.RELEASE_CHANNEL',
                     replace: "true"
                 },
                 {
-                    predicate:() => settings.store.removeCloseButton,
+                    predicate: () => settings.store.removeCloseButton,
                     match: /(\i=\(\)=>)\(.*?\}\);/,
                     replace: "$1null;",
                 },
                 {
-                    match: /\i\.\i\.format\(.{0,15},{buildNumber:(.{0,10})}\)/,
-                    replace: "$self.transform($1)"
-                }
+                    match: /children:\[.*?\{\}\)\]/g,
+                    replace: "children:$self.makeDevBanner()"
+                },
             ]
         }
     ],
 
-    transform(buildNumber: string) {
+    makeDevBanner() {
         const releaseChannel: string = window.GLOBAL_ENV.RELEASE_CHANNEL;
+        const buildNumber: string = window.GLOBAL_ENV.VERSION_HASH;
 
         if (names[releaseChannel]) {
             return `${names[releaseChannel]} ${buildNumber}`;
